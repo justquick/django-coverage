@@ -120,4 +120,20 @@ class CoverageRunner(DjangoTestSuiteRunner):
             print("")
             print("HTML reports were output to '%s'" %outdir)
 
+        datafile = settings.COVERAGE_REPORT_DATA_FILE
+        if datafile:
+            covered_files = coverage._the_coverage.data.lines.keys()
+            covered_arcs = coverage._the_coverage.data.arcs.keys()
+            modfiles = []
+            for module in modules.values():
+                modfiles.append(module.__file__.replace('.pyc', '.py'))
+            for filename in covered_files:
+                if not filename in modfiles and filename in coverage._the_coverage.data.lines:
+                    del coverage._the_coverage.data.lines[filename]
+            for filename in covered_arcs:
+                if not filename in modfiles and filename in coverage._the_coverage.data.arcs:
+                    del coverage._the_coverage.data.arcs[filename]
+            coverage._the_coverage.data.usefile(True)
+            coverage._the_coverage.data.write_file(datafile)
+
         return results

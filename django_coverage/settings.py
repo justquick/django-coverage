@@ -90,3 +90,6 @@ COVERAGE_USE_STDOUT = getattr(settings, 'COVERAGE_USE_STDOUT', COVERAGE_REPORT_H
 # The name of the folder within utils/coverage_report/badges/ that
 # contains the badges we want to use.
 COVERAGE_BADGE_TYPE = getattr(settings, 'COVERAGE_BADGE_TYPE', 'drone.io')
+
+# Filename to use to output machine readable coverage data. Usually ".coverage"
+COVERAGE_REPORT_DATA_FILE = getattr(settings, 'COVERAGE_REPORT_DATA_FILE', None)
